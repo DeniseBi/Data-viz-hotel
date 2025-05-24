@@ -50,6 +50,9 @@ The following open-source datasets are used in this project:
 
 ## 🚀 How to Run the App Locally
 
+You can run this app locally using **Command Prompt (CMD)** on Windows or a **terminal in any IDE** (such as VS Code, PyCharm, etc.).
+
+### ✅ First-Time Setup
 1. **Clone the repository**
 
     ```bash
@@ -79,8 +82,13 @@ The following open-source datasets are used in this project:
     pip install -r requirements.txt
     ```
 
-4. **Run the app**
+---
 
+### ▶️ Running the App
+
+Before running the app, **make sure your virtual environment is activated**  (venv\Scripts\activate).
+
+Then launch the dashboard using:
     ```bash
     streamlit run app.py
     ```
