@@ -89,9 +89,10 @@ You can run this app locally using **Command Prompt (CMD)** on Windows or a **te
 Before running the app, **make sure your virtual environment is activated**  (venv\Scripts\activate).
 
 Then launch the dashboard using:
-    ```bash
+
+   ```bash
     streamlit run app.py
-    ```
+   ```
 
     The dashboard will open in your browser at for example:  
     http://localhost:8501
