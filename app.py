@@ -43,7 +43,9 @@ def prepare_occupancy_files():
 # ---------------------- Step 2: App configuration ----------------------
 st.set_page_config(layout="wide")
 
-st.title("🏨 Hotel Performance Dashboard")
+st.markdown("""
+<h1 style='text-align: center; color: #0f172a; padding: 1rem 0;'>🏨 Hotel Performance Dashboard</h1>
+""", unsafe_allow_html=True)
 
 st.markdown("""
 <style>
@@ -500,17 +502,70 @@ with charts_col:
             y="count",
             labels={"lead_time": "Lead Time (Days)", "count": "# of Reservations"},
             height=220,
-            template="simple_white"
+            template="simple_white",
+            color_discrete_sequence=["#7b2cbf"]
         )
+
+        # Update marker style
+        lead_fig.update_traces(
+            marker=dict(
+                size=6,
+                opacity=0.7,
+                line=dict(width=1, color="#7b2cbf")
+            )
+        )
+
+        # Add vertical lines for monthly intervals
+        max_lead_time = lead_counts["lead_time"].max()
+        months = list(range(30, int(max_lead_time) + 30, 30))  # Generate monthly intervals
+        for i, month in enumerate(months, 1):  # Start enumeration from 1
+            # Determine if this is a 4-month interval
+            is_four_month = i % 4 == 0
+            
+            lead_fig.add_vline(
+                x=month,
+                line_dash="dot",
+                line_color="#7b2cbf",
+                line_width=1,
+                opacity=0.2 if not is_four_month else 0.4  # More visible for 4-month intervals
+            )
+            
+            # Only add month number annotation for 4-month intervals
+            if is_four_month:
+                lead_fig.add_annotation(
+                    x=month,
+                    y=lead_counts["count"].max(),
+                    text=f"{i}m",
+                    showarrow=False,
+                    yshift=10,
+                    font=dict(size=8, color="#7b2cbf")
+                )
+
         lead_fig.update_layout(margin=dict(t=20, b=10, l=10, r=10))
         st.plotly_chart(lead_fig, use_container_width=True)
 
         st.subheader("Guest Group Composition")
+        # Define a custom color palette that complements our theme
+        guest_colors = {
+            "Solo Traveler": "#0faa7c",    # Our main purple
+            "Couple": "#7b2cbf",           # Lighter purple
+            "Family": "#e76f51",           # Coral (accent color we use)
+            "Trio": "#e8a319",             # Light purple
+            "Other": "#aa0f3e"             # Dark purple
+        }
+        
         guest_fig = px.pie(
             filtered_df, 
             names="guest_type", 
             height=220, 
-            template="simple_white"
+            template="simple_white",
+            color="guest_type",
+            color_discrete_map=guest_colors
+        )
+        guest_fig.update_traces(
+            textposition='inside',
+            textinfo='percent+label',
+            hovertemplate="<b>%{label}</b><br>Percentage: %{percent}<extra></extra>"
         )
         guest_fig.update_layout(margin=dict(t=20, b=10, l=10, r=10))
         st.plotly_chart(guest_fig, use_container_width=True)
@@ -560,19 +615,23 @@ with charts_col:
         market_counts = all_segments.merge(market_counts, on="segment", how="left").fillna(0)
         market_counts = market_counts.sort_values("segment", key=lambda x: pd.Categorical(x, categories=MARKET_SEGMENT_ORDER, ordered=True))
 
-        market_fig = px.scatter(
+        # Add color column for highlighting highest count
+        market_counts['color'] = '#7b2cbf'  # Default purple color
+        max_count_idx = market_counts['count'].idxmax()
+        market_counts.loc[max_count_idx, 'color'] = '#e76f51'  # Highlight color (coral)
+
+        market_fig = px.bar(
             market_counts,
             x="segment",
             y="count",
-            size="count",
-            size_max=50,
             labels={"segment": "Market Segment", "count": "# of Guests"},
             height=220,
             template="simple_white",
-            color_discrete_sequence=["#7b2cbf"],
+            color='color',
+            color_discrete_map="identity",
             category_orders={"segment": MARKET_SEGMENT_ORDER}
         )
-        market_fig.update_layout(margin=dict(t=20, b=10, l=10, r=10), xaxis_tickangle=45)
+        market_fig.update_layout(margin=dict(t=20, b=10, l=10, r=10), xaxis_tickangle=45, showlegend=False)
         st.plotly_chart(market_fig, use_container_width=True)
     
     # Third column: Map
