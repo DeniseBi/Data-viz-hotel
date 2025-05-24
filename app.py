@@ -43,6 +43,8 @@ def prepare_occupancy_files():
 # ---------------------- Step 2: App configuration ----------------------
 st.set_page_config(layout="wide")
 
+st.title("🏨 Hotel Performance Dashboard")
+
 st.markdown("""
 <style>
 html, body, [class*="css"]  {
@@ -54,15 +56,6 @@ html, body, [class*="css"]  {
 }
 h1, h2, h3, h4 {
     font-size: unset !important;
-}
-
-.main-title {
-    color: #7b2cbf;
-    font-size: 1.8rem !important;
-    font-weight: bold;
-    text-align: center;
-    padding: 0.5rem 0;
-    margin-bottom: 1rem;
 }
 
 .block-container {
@@ -130,25 +123,6 @@ div[data-testid="stHorizontalBlock"] {
     min-height: 100%;
 }
 
-.logo-container {
-    background-color: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-    padding: 2rem;
-    margin-top: 8rem;
-    text-align: center;
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.hotel-logo {
-    width: 120px;
-    height: auto;
-    margin-bottom: 1.5rem;
-}
 
 .data-sources {
     font-size: 0.7rem;
@@ -167,9 +141,6 @@ div[data-testid="stHorizontalBlock"] {
 }
 </style>
 """, unsafe_allow_html=True)
-
-# Add main title right after the CSS and before the KPI section
-st.markdown("<h1 class='main-title'>🏨 Hotel Performance Dashboard</h1>", unsafe_allow_html=True)
 
 # ------------------ KPI Section ------------------
 FAKE_TODAY = pd.Timestamp("2016-09-21")
@@ -330,11 +301,7 @@ with kpi_col:
     # Create columns with more space in the middle
     col1, col2, col3 = st.columns([1,4,2])
     with col2:
-        try:
-            st.image("logo/logo.png", width=250)
-        except:
-            st.markdown("<div style='color: #94a3b8; font-size: 1rem;'>Hotel Logo</div>", unsafe_allow_html=True)
-    
+       
         # Center the data sources text
         st.markdown("""
             <div style='
@@ -342,10 +309,12 @@ with kpi_col:
                 color: #94a3b8;
                 text-align: center;
                 line-height: 1.2;
-                margin-top: 0.5rem;
+                margin-top: 7rem;
             '>
                 Data Sources:
-                <a href="https://www.kaggle.com/datasets/mojtaba142/hotel-booking/data" target="_blank" style='color: #7b2cbf; text-decoration: none;'>Hotel Booking Dataset</a> |
+                <br>
+                <a href="https://www.kaggle.com/datasets/mojtaba142/hotel-booking/data" target="_blank" style='color: #7b2cbf; text-decoration: none;'>Hotel Booking Dataset</a> 
+                <br>
                 <a href="https://www.kaggle.com/datasets/liewyousheng/geolocation" target="_blank" style='color: #7b2cbf; text-decoration: none;'>Geolocation Dataset</a>
             </div>
         </div>
@@ -361,7 +330,7 @@ with charts_col:
     # Add Occupancy and ADR charts side by side
     top_charts_cols = st.columns(2, gap="small")
     with top_charts_cols[0]:
-        st.subheader("When is the hotel reaching full occupancy?")
+        st.subheader("Optimize Occupancy for Campaign")
 
         fig = make_subplots(
             rows=len(selected_hotels),
@@ -448,7 +417,7 @@ with charts_col:
         st.plotly_chart(fig, use_container_width=True)
 
     with top_charts_cols[1]:
-        st.subheader("Average Daily Rate (ADR) Trends")
+        st.subheader("Optimize Prise for Campaign")
         adr_fig = go.Figure()
         for hotel in selected_hotels:
             df = all_data[all_data['hotel'] == hotel].copy()
@@ -475,7 +444,7 @@ with charts_col:
                 xanchor="center",
                 x=0.5
             ),
-            yaxis_title="Average Daily Rate (€)",
+            yaxis_title="Average Daily Rate ($)",
             xaxis_rangeslider_visible=True,
             xaxis_range=initial_range
         )
