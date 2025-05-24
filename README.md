@@ -78,6 +78,7 @@ You can run this app locally using **Command Prompt (CMD)** on Windows or a **te
 
 3. **Install the required packages**
 
+   *Note: This step might take a few minutes depending on your internet connection and system.*
     ```bash
     pip install -r requirements.txt
     ```
