@@ -86,8 +86,16 @@ You can run this app locally using **Command Prompt (CMD)** on Windows or a **te
 
 ### ▶️ Running the App
 
-Before running the app, **make sure your virtual environment is activated**  (venv\Scripts\activate).
+Before running the app, **make sure you are in Data-viz-hotel folder and your virtual environment is activated**  
+ On **Windows**:
+  ```bash
+    venv\Scripts\activate
+  ```
 
+  On **macOS/Linux**:
+  ```bash
+    source venv/bin/activate
+  ```
 Then launch the dashboard using:
 
    ```bash
