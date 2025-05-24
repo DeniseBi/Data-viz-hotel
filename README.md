@@ -94,5 +94,5 @@ Then launch the dashboard using:
     streamlit run app.py
    ```
 
-    The dashboard will open in your browser at for example:  
-    http://localhost:8501
+The dashboard will open in your browser at for example:  
+http://localhost:8501
