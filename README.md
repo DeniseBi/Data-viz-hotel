@@ -11,6 +11,7 @@ https://github.com/user-attachments/assets/d6213cec-2496-44c8-8115-f149805fbad8
 
 > 💤 **App went to sleep?**  
 If you see a message like _“This app has gone to sleep due to inactivity”_, just click the **“Yes, get this app back up!”** button and wait a few seconds. The app will reload automatically.
+If it doesn’t refresh on its own, try refreshing the browser page manually.
 ![image](https://github.com/user-attachments/assets/251bc686-50b8-4b55-a180-fc71576e6f2d)
 
 ---
