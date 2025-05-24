@@ -54,14 +54,23 @@ The following open-source datasets are used in this project:
 
     ```bash
     git clone https://github.com/DeniseBi/Data-viz-hotel.git
+    ```
+    ```bash
     cd Data-viz-hotel
     ```
 
 2. **(Optional) Create a virtual environment**
 
+     On **Windows**:
     ```bash
     python -m venv venv
-    source venv/bin/activate        # On Windows: venv\Scripts\activate
+    venv\Scripts\activate
+    ```
+
+    On **macOS/Linux**:
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
     ```
 
 3. **Install the required packages**
