@@ -44,7 +44,7 @@ def prepare_occupancy_files():
 st.set_page_config(layout="wide")
 
 st.markdown("""
-<h1 style='text-align: center; color: #0f172a; padding: 1rem 0;'>🏨 Hotel Performance Dashboard</h1>
+<h1 style='text-align: center; color:rgb(255, 255, 255); padding: 1rem 0;'>Hotel Performance Dashboard</h1>
 """, unsafe_allow_html=True)
 
 st.markdown("""
