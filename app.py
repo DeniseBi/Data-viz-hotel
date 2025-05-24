@@ -419,7 +419,7 @@ with charts_col:
         st.plotly_chart(fig, use_container_width=True)
 
     with top_charts_cols[1]:
-        st.subheader("Optimize Prise for Campaign")
+        st.subheader("Optimize Price for Campaign")
         adr_fig = go.Figure()
         for hotel in selected_hotels:
             df = all_data[all_data['hotel'] == hotel].copy()
