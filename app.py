@@ -403,7 +403,8 @@ with charts_col:
             fig.update_yaxes(
                 row=i,
                 col=1,
-                title_text="Number of Guests"
+                title_text="Number of Guests",
+                title_font=dict(size=10)
             )
 
         fig.add_trace(go.Scatter(
